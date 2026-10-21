@@ -1,0 +1,99 @@
+{
+  "entities": {
+    "Party": {
+      "title": "Party",
+      "description": "Registered mill or textile party profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "phone": { "type": "string" },
+        "paymentDays": { "type": "number" }
+      },
+      "required": ["id", "name"]
+    },
+    "Trip": {
+      "title": "Trip",
+      "description": "Log entry of inward pipes or outward beam delivery",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "challanNo": { "type": "string" },
+        "date": { "type": "string" },
+        "entryType": { "type": "string", "enum": ["Inward", "Outward"] },
+        "khataName": { "type": "string" },
+        "partyPhone": { "type": "string" },
+        "vehicleNumber": { "type": "string" },
+        "owner": { "type": "string" },
+        "driver": { "type": "string" },
+        "driverPhone": { "type": "string" },
+        "pickup": { "type": "string" },
+        "destination": { "type": "string" },
+        "pipeCount": { "type": "number" },
+        "beamCount": { "type": "number" },
+        "fare": { "type": "number" },
+        "remark": { "type": "string" }
+      },
+      "required": ["id", "challanNo", "date", "entryType", "khataName", "vehicleNumber"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Payment record for tempo owner",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "owner": { "type": "string" },
+        "amount": { "type": "number" },
+        "remark": { "type": "string" }
+      },
+      "required": ["id", "date", "owner", "amount"]
+    },
+    "YarnWeigh": {
+      "title": "YarnWeigh",
+      "description": "Weighing slip for mono yarn beams",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slipNo": { "type": "string" },
+        "date": { "type": "string" },
+        "khataName": { "type": "string" },
+        "partyPhone": { "type": "string" },
+        "qualityName": { "type": "string" },
+        "ends": { "type": "number" },
+        "denier": { "type": "number" },
+        "filament": { "type": "number" },
+        "meterPerBeam": { "type": "number" },
+        "beamCount": { "type": "number" },
+        "totalMeters": { "type": "number" },
+        "expectedNetWeightKg": { "type": "number" },
+        "actualNetWeightKg": { "type": "number" },
+        "diffKg": { "type": "number" },
+        "diffPercentage": { "type": "number" },
+        "ratePerKg": { "type": "number" },
+        "totalAmount": { "type": "number" },
+        "remark": { "type": "string" }
+      },
+      "required": ["id", "slipNo", "date", "khataName"]
+    }
+  },
+  "firestore": {
+    "/parties/{partyId}": {
+      "schema": { "$ref": "#/entities/Party" },
+      "description": "Registered parties"
+    },
+    "/trips/{tripId}": {
+      "schema": { "$ref": "#/entities/Trip" },
+      "description": "Trip and challan records"
+    },
+    "/payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/Payment" },
+      "description": "Tempo owner payment records"
+    },
+    "/weigh_records/{weighId}": {
+      "schema": { "$ref": "#/entities/YarnWeigh" },
+      "description": "Beam weighing slips"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        // Global error suppression for external chrome-extension injected scripts
+        window.addEventListener('error', function(event) {
+          try {
+            var msg = (event && (event.message || (event.error && event.error.message))) || '';
+            var fn = (event && event.filename) || '';
+            if (fn.indexOf('chrome-extension://') !== -1 || msg.indexOf('Cannot set property fetch') !== -1) {
+              if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+              if (event.stopPropagation) event.stopPropagation();
+              if (event.preventDefault) event.preventDefault();
+              return true;
+            }
+          } catch (e) {}
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(event) {
+          try {
+            var reason = String(event && event.reason);
+            if (reason.indexOf('chrome-extension://') !== -1 || reason.indexOf('Cannot set property fetch') !== -1) {
+              if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+              if (event.preventDefault) event.preventDefault();
+            }
+          } catch (e) {}
+        }, true);
+
+        // Define configurable getter and setter for fetch on window and Window.prototype
+        try {
+          var _currentFetch = window.fetch;
+          var desc = {
+            get: function() { return _currentFetch; },
+            set: function(fn) { _currentFetch = fn; },
+            configurable: true,
+            enumerable: true
+          };
+          try { Object.defineProperty(window, 'fetch', desc); } catch (e1) {}
+          try {
+            if (typeof Window !== 'undefined' && Window.prototype) {
+              Object.defineProperty(Window.prototype, 'fetch', desc);
+            }
+          } catch (e2) {}
+        } catch (e) {}
+      })();
+    </script>
+    <title>ATMOS Mother Yarn Splitting & Mono Beam ERP</title>
+    <meta name="description" content="Textile ERP for Mother Yarn Splitting & Mono Yarn Beams with warping calculation, deal messages, inward pipe pickup receipt via WhatsApp, and outward delivery challans." />
+    <meta property="og:title" content="ATMOS Mother Yarn Splitting & Mono Beam ERP" />
+    <meta property="og:description" content="Textile ERP for Mother Yarn Splitting & Mono Yarn Beams with warping calculation, deal messages, inward pipe pickup receipt via WhatsApp, and outward delivery challans." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

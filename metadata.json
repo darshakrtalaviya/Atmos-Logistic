@@ -1,0 +1,6 @@
+{
+  "name": "ATMOS Mother Yarn Splitting & Mono Beam ERP",
+  "description": "Textile ERP for Mother Yarn Splitting & Mono Yarn Beams with warping calculation, deal messages, inward pipe pickup receipt via WhatsApp, and outward delivery challans.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
